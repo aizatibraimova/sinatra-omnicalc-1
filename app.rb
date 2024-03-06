@@ -13,11 +13,55 @@ get("/square/new") do
   erb(:new_square_calc)
 end
 
-get "/square/results" do
+get("/square/results") do
   @the_num = params.fetch("users_number").to_f 
 
   @the_result = params.fetch("users_number").to_f * params.fetch("users_number").to_f
   erb(:square_results)
+end
+
+get("/square_root/new") do
+  erb(:new_square_root_calc)
+end
+
+get("/square_root/results") do
+@the_num = params.fetch("user_number").to_f
+
+@the_result = Math.sqrt(@the_num)
+
+  erb(:square_root_result)
+end
+
+get("/payment/new") do
+  erb(:payment_calc)
+end
+
+get("/payment/results") do
+  @the_apr = params.fetch("user_apr").to_f
+
+  @the_years = params.fetch("user_years").to_f
+
+  @the_principal = params.fetch("user_pv").to_f
+
+  monthly_interest_rate = @the_apr / 12 / 100
+  total_payments = @the_years * 12
+
+  @the_result = @the_principal * (monthly_interest_rate * (1 + monthly_interest_rate)**total_payments) / ((1 + monthly_interest_rate)**total_payments - 1)
+
+  erb(:payment_result)
+end
+
+get("/random/new") do
+  erb(:random_calc)
+end
+
+get("/random/results") do
+  @min_num = params.fetch("user_min").to_f
+
+  @max_num = params.fetch("user_max").to_f
+
+  @rand_num = rand(@min_num..@max_num)
+  erb(:random_results)
 end
 
 get("/") do
